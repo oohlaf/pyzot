@@ -1,0 +1,12 @@
+# Ignore buildout's directories
+/bin
+/etc
+/lib
+/var
+# Ignore setuptools/Distribute files
+*.egg-info
+/dist
+/build
+# Ignore python precompiled files
+*.pyc
+*.pyo
