@@ -6,20 +6,41 @@
 [app:main]
 use = egg:PyZot
 
-pyramid.reload_templates = false
+pyramid.reload_templates = true
 pyramid.debug_authorization = false
 pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 pyramid.includes =
+    pyramid_debugtoolbar
     pyramid_tm
 
-sqlalchemy.url = sqlite:///%(here)s/PyZot.sqlite
+sqlalchemy.url = ${parts.devini.sqlalchemyurl}
 
+# By default, the toolbar only appears for clients from IP addresses
+# '127.0.0.1' and '::1'.
+debugtoolbar.hosts = ${parts.devini.debugtoolbarhosts}
+
+###
+# wsgi server configuration
+###
+
+# When using pserve
 [server:main]
 use = egg:waitress#main
-host = 0.0.0.0
-port = 6543
+host = ${parts.devini.pservehost}
+port = ${parts.devini.pserveport}
+
+# When using uwsgi
+[uwsgi]
+virtualenv = ${parts.devini.uwsgivenv}
+socket = ${parts.devini.uwsgisocket}
+chmod-socket = 660
+master = true
+processes = ${parts.devini.uwsgiprocesses}
+pidfile = ${parts.devini.uwsgipidfile}
+no-orphans = true
+log-date = true
 
 ###
 # logging configuration
@@ -36,16 +57,16 @@ keys = console
 keys = generic
 
 [logger_root]
-level = WARN
+level = INFO
 handlers = console
 
 [logger_pyzot]
-level = WARN
+level = DEBUG
 handlers =
 qualname = pyzot
 
 [logger_sqlalchemy]
-level = WARN
+level = INFO
 handlers =
 qualname = sqlalchemy.engine
 # "level = INFO" logs SQL queries.

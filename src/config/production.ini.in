@@ -6,29 +6,25 @@
 [app:main]
 use = egg:PyZot
 
-pyramid.reload_templates = true
+pyramid.reload_templates = false
 pyramid.debug_authorization = false
 pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 pyramid.includes =
-    pyramid_debugtoolbar
     pyramid_tm
 
-sqlalchemy.url = sqlite:///%(here)s/PyZot.sqlite
+sqlalchemy.url = ${parts.prodini.sqlalchemyurl}
 
-# By default, the toolbar only appears for clients from IP addresses
-# '127.0.0.1' and '::1'.
-# debugtoolbar.hosts = 127.0.0.1 ::1
-
-###
-# wsgi server configuration
-###
-
-[server:main]
-use = egg:waitress#main
-host = 0.0.0.0
-port = 6543
+[uwsgi]
+virtualenv = ${parts.prodini.uwsgivenv}
+socket = ${parts.prodini.uwsgisocket}
+chmod-socket = 660
+master = true
+processes = ${parts.prodini.uwsgiprocesses}
+pidfile = ${parts.prodini.uwsgipidfile}
+no-orphans = true
+log-date = true
 
 ###
 # logging configuration
@@ -45,16 +41,16 @@ keys = console
 keys = generic
 
 [logger_root]
-level = INFO
+level = WARN
 handlers = console
 
 [logger_pyzot]
-level = DEBUG
+level = WARN
 handlers =
 qualname = pyzot
 
 [logger_sqlalchemy]
-level = INFO
+level = WARN
 handlers =
 qualname = sqlalchemy.engine
 # "level = INFO" logs SQL queries.
