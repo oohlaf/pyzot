@@ -1,7 +1,9 @@
-# Ignore buildout's directories
+# Ignore buildout and virtualenv directories
 /bin
 /etc
+/include
 /lib
+/local
 /var
 # Ignore setuptools/Distribute files
 *.egg-info
