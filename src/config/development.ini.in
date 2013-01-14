@@ -34,8 +34,10 @@ port = ${parts.devini.pserveport}
 # When using uwsgi
 [uwsgi]
 virtualenv = ${parts.devini.uwsgivenv}
+pythonpath = ${parts.devini.uwsgipypath1}
+pythonpath = ${parts.devini.uwsgipypath2}
 socket = ${parts.devini.uwsgisocket}
-chmod-socket = 660
+chmod-socket = ${parts.devini.uwsgichmodsocket}
 master = true
 processes = ${parts.devini.uwsgiprocesses}
 pidfile = ${parts.devini.uwsgipidfile}

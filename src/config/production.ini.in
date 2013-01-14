@@ -18,8 +18,10 @@ sqlalchemy.url = ${parts.prodini.sqlalchemyurl}
 
 [uwsgi]
 virtualenv = ${parts.prodini.uwsgivenv}
+pythonpath = ${parts.prodini.uwsgipypath1}
+pythonpath = ${parts.prodini.uwsgipypath2}
 socket = ${parts.prodini.uwsgisocket}
-chmod-socket = 660
+chmod-socket = ${parts.prodini.uwsgichmodsocket}
 master = true
 processes = ${parts.prodini.uwsgiprocesses}
 pidfile = ${parts.prodini.uwsgipidfile}
