@@ -16,7 +16,7 @@ Installation
 
 - ./bin/buildout
 
-- ./bin/initialize_PyZot_db development.ini
+- ./bin/initialize_PyZot_db etc/development.ini
 
 Starting PyZot for Development
 ------------------------------
