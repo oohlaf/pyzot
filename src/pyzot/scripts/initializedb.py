@@ -9,11 +9,8 @@ from pyramid.paster import (
     setup_logging,
     )
 
-from ..models import (
-    DBSession,
-    MyModel,
-    Base,
-    )
+from pyzot.models import DBSession
+from pyzot.models.models import MyModel
 
 
 def usage(argv):
