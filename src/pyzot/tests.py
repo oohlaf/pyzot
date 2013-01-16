@@ -3,7 +3,7 @@ import transaction
 
 from pyramid import testing
 
-from .models import DBSession
+from pyzot.models import DBSession
 
 
 class TestMyView(unittest.TestCase):
@@ -11,10 +11,8 @@ class TestMyView(unittest.TestCase):
         self.config = testing.setUp()
         from sqlalchemy import create_engine
         engine = create_engine('sqlite://')
-        from .models import (
-            Base,
-            MyModel,
-            )
+        from pyzot.models import Base
+        from pyzot.models.models import MyModel
         DBSession.configure(bind=engine)
         Base.metadata.create_all(engine)
         with transaction.manager:
@@ -26,7 +24,7 @@ class TestMyView(unittest.TestCase):
         testing.tearDown()
 
     def test_it(self):
-        from .views import my_view
+        from pyzot.views import my_view
         request = testing.DummyRequest()
         info = my_view(request)
         self.assertEqual(info['one'].name, 'one')

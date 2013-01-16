@@ -3,10 +3,8 @@ from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
 
-from .models import (
-    DBSession,
-    MyModel,
-    )
+from pyzot.models import DBSession
+from pyzot.models.models import MyModel
 
 
 @view_config(route_name='home', renderer='templates/mytemplate.pt')
